@@ -1,0 +1,5 @@
+.idea/
+build/env.sh
+staticfiles/
+db.sqlite3
+**__pycache__**
