@@ -138,7 +138,7 @@ local_data = locals()
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Database
-if os.environ.get('use_sentry') == 'True':
+if os.environ.get('SENTRY_DSN') == 'True':
     # Sentry settings
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
@@ -148,7 +148,7 @@ if os.environ.get('use_sentry') == 'True':
         integrations=[DjangoIntegration()]
     )
 
-elif os.environ.get('use_heroku'):
+if os.environ.get('use_heroku'):
     import django_heroku
     django_heroku.settings(locals())
 elif os.environ.get('use_aws'):
