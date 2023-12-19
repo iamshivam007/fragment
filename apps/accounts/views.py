@@ -30,7 +30,7 @@ class UserViewSet(RetrieveModelMixin, GenericViewSet):
     def me(self, request):
         if request.method == "GET":
             serializer = UserSerializer(request.user, context={"request": request})
-            return Response(status=status.HTTP_200_OK, data=serializer.data)
+            return Response(status=status.HTTP_200_OK, data={"status_code": 200, "success": True, "data": serializer.data})
         else:
             serializer = ProfileUpdateSerializer(data=request.data, instance=self.request.user)
             serializer.is_valid(raise_exception=True)
@@ -58,8 +58,10 @@ class VerifyOtpApiView(APIView):
         token, created = Token.objects.get_or_create(user=user)
         return Response({
             "status_code": 200, "success": True,
-            "token": token.key,
-            "name": user.name,
-            "username": user.username,
-            "id": user.id
+            "data": {
+                "token": token.key,
+                "name": user.name,
+                "username": user.username,
+                "id": user.id
+            }
         }, status=status.HTTP_200_OK)
