@@ -42,7 +42,7 @@ class LoginSerializer(serializers.Serializer):
         response = client.messages.create(
             from_=os.environ.get('TWILIO_PHONE_NUMBER'),
             to=validated_data["country_code"] + validated_data["mobile_number"],
-            body=f'Hi, Your otp for verification is ${random_otp}'
+            body=f'Hi, Your otp for verification is {random_otp}'
         )
         print(response)
         user, _ = User.objects.get_or_create(defaults={"username": uuid.uuid4()}, **validated_data)
